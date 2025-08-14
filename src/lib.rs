@@ -16,6 +16,13 @@ pub fn search_case_insensitive <'a> (
 ) -> Vec<(&'a str, i32)> {
     let query = query.to_lowercase(); 
     let mut results: Vec<(&'a str, i32)> = Vec::new();
+    let mut i: i32 = 1;
+    for line in contents.lines() {
+        if line.to_lowercase().contains(&query) {
+            results.push((line, i));
+        }
+        i += 1;
+    }
 
     results
 }
@@ -43,7 +50,7 @@ safe, fast, productive.
 Pick three.
 Trust me.";
         assert_eq!(
-            vec![("Rust:",1),("Trust me",4)],
+            vec![("Rust:",1),("Trust me.",4)],
             search_case_insensitive(query, contents)
         )
     }
