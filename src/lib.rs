@@ -1,14 +1,13 @@
-pub fn search<'a> (query: &str, contents: &'a str) -> Vec<(&'a str, i32)> {
-    let mut x: Vec<(&str, i32)> = Vec::new();
-    let mut i: i32 = 1;
-    for line in contents.lines() {
-        if line.contains(query) {
-            x.push((line,i));
-        }
-        i += 1;
-    }
-    x
+
+
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<(&'a str, i32)> {
+    contents.lines()
+        .enumerate()
+        .map(|(index, value)| (value, (index + 1) as i32))
+        .filter(|(line, _)| line.contains(query))
+        .collect()
 }
+
 
 pub fn search_case_insensitive <'a> (
     query: &str,
